@@ -1,17 +1,24 @@
---- 
-jobs: 
-  build: 
-    docker:
-      - image: circleci/spring-boot
-    steps: 
-      - checkout
-      - setup_remote_docker
-        docker_layer_caching: true
-      - 
-        run: 
-          command: |
-              docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-              docker build --no-cache -t $DOCKER_USERNAME/$CIRCLE_PROJECT_REPONAME .
-              docker push $DOCKER_USERNAME/$CIRCLE_PROJECT_REPONAME
-          name: "Build application Docker image"
 version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:11.0.1-jdk
+
+    working_directory: ~/spring-boot
+    
+    steps:
+      # git pull
+      - checkout
+
+      # setup testing env
+      - setup_remote_docker
+      
+      - run:
+          name: Login to DockerHub
+          command: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - run:
+          name: Build Docker Image
+          command: docker build --no-cache -t $DOCKER_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Push Image to DockerHub
+          command: docker push $DOCKER_USERNAME/$CIRCLE_PROJECT_REPONAME
