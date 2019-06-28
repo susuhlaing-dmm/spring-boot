@@ -15,6 +15,7 @@ jobs:
       
       - run:
           name: Login to DockerHub
+          command: echo $DOCKER_USERNAME $DOCKER_PASSWORD
           command: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
           
       - run:
