@@ -1,0 +1,16 @@
+--- 
+jobs: 
+  build: 
+    machine: true
+    steps: 
+      - checkout
+      - setup_remote_docker
+      - 
+        run: 
+          command: |
+              docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+              docker build --no-cache -t $DOCKER_USERNAME/$CIRCLE_PROJECT_REPONAME
+              docker push $DOCKER_USERNAME/$CIRCLE_PROJECT_REPONAME
+          name: "Build application Docker image"
+    working_directory: ~/spring-fat-jar-circleci-k8s
+version: 2
