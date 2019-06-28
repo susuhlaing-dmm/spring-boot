@@ -18,7 +18,7 @@ jobs:
           command: |
             cd docker
             echo "$DOCKER_USERNAME" "$DOCKER_PASSWORD"
-            docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+            docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
           
       - run:
           name: Build Docker Image
