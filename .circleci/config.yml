@@ -16,9 +16,11 @@ jobs:
       - run:
           name: Login to DockerHub
           command: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+          
       - run:
           name: Build Docker Image
           command: docker build --no-cache -t $DOCKER_USERNAME/spring-boot .
+          
       - run:
           name: Push Image to DockerHub
           command: docker push $DOCKER_USERNAME/spring-boot
