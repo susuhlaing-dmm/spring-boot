@@ -13,6 +13,9 @@ jobs:
       # setup testing env
       - setup_remote_docker
       
+      -run:        
+        command: echo "$DOCKER_USERNAME" "$DOCKER_PASSWORD"
+            
       - run:
           name: Login to DockerHub
           command: |
